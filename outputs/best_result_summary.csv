@@ -1,0 +1,2 @@
+competition,best_submission,public_score,private_score,mean_oof_auc,rank_estimate,notes
+jigsaw-toxic-comment-classification-challenge,outputs/submission_nbsvm_tfidf.csv,0.97794,0.97937,0.981742,"approx public top 54.5%","Legal TF-IDF NB-SVM baseline; top 20% likely requires deep ensemble or post-competition leakage"

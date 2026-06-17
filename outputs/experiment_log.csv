@@ -1,0 +1,2 @@
+experiment_id,model,features,mean_oof_auc,public_score,private_score,submission_file,notes
+exp001,NB-SVM Logistic Regression,"word 1-2 TF-IDF + char 3-5 TF-IDF",0.981742,0.97794,0.97937,outputs/submission_nbsvm_tfidf.csv,"Legal baseline; no test_labels leakage"
