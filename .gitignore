@@ -10,9 +10,12 @@ jigsaw-toxic-comment-classification-challenge/
 
 # Local temporary outputs
 outputs/leaderboard/
+outputs/submission_nbsvm_keras20_transformer*.csv
+outputs/submission_transformer_holdout.csv
 
 # Keep final reproducible outputs
 !outputs/
+!outputs/submission_nbsvm_keras20_transformer20.csv
 !outputs/submission_nbsvm_tfidf.csv
 !outputs/oof_nbsvm_tfidf.csv
 !outputs/pred_nbsvm_tfidf.csv
