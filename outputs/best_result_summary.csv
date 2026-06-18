@@ -1,2 +1,2 @@
 competition,best_submission,public_score,private_score,mean_oof_auc,rank_estimate,notes
-jigsaw-toxic-comment-classification-challenge,outputs/submission_nbsvm_keras20_transformer20.csv,0.98226,0.98240,,"below top 20% target","Legal blend of TF-IDF NB-SVM, Keras BiGRU-CNN, and DistilBERT; no test_labels leakage"
+jigsaw-toxic-comment-classification-challenge,outputs/submission_nbsvm30_keras0_transformer_e3_70.csv,0.98619,0.98611,,"close to top 20% target","Legal blend of TF-IDF NB-SVM and 3-epoch DistilBERT; no test_labels leakage"
