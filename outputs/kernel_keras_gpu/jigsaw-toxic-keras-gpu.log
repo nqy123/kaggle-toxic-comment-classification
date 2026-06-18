@@ -1,0 +1,43 @@
+[{"stream_name":"stderr","time":3.716877131,"data":"2026-06-18 03:44:46.131647: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered\n"}
+,{"stream_name":"stderr","time":3.911182036,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":3.911219748,"data":"E0000 00:00:1781754286.325906       7 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered\n"}
+,{"stream_name":"stderr","time":3.972748464,"data":"E0000 00:00:1781754286.387554       7 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n"}
+,{"stream_name":"stderr","time":4.426206775,"data":"W0000 00:00:1781754286.840957       7 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.\n"}
+,{"stream_name":"stderr","time":4.426278037,"data":"W0000 00:00:1781754286.841012       7 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.\n"}
+,{"stream_name":"stderr","time":4.426282142,"data":"W0000 00:00:1781754286.841016       7 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.\n"}
+,{"stream_name":"stderr","time":4.426284959,"data":"W0000 00:00:1781754286.841019       7 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.\n"}
+,{"stream_name":"stdout","time":19.621040806,"data":"[2026-06-18 03:45:02] tensorflow=2.19.0\n"}
+,{"stream_name":"stdout","time":20.569534435,"data":"[2026-06-18 03:45:02] gpus=[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]\n"}
+,{"stream_name":"stdout","time":37.311683578,"data":"[2026-06-18 03:45:19] adapt TextVectorization\n"}
+,{"stream_name":"stderr","time":37.432049544,"data":"I0000 00:00:1781754319.846832       7 gpu_device.cc:2019] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 15511 MB memory:  -\u003e device: 0, name: Tesla P100-PCIE-16GB, pci bus id: 0000:00:04.0, compute capability: 6.0\n"}
+,{"stream_name":"stdout","time":41.583660492,"data":"[2026-06-18 03:45:23] ========== fold 1/3 ==========\n"}
+,{"stream_name":"stdout","time":43.241764999,"data":"Epoch 1/3\n"}
+,{"stream_name":"stderr","time":48.162964477,"data":"I0000 00:00:1781754330.577609      43 cuda_dnn.cc:529] Loaded cuDNN version 91002\n"}
+,{"stream_name":"stdout","time":89.429884834,"data":"416/416 - 46s - 111ms/step - auc: 0.8965 - loss: 0.0853 - val_auc: 0.9643 - val_loss: 0.0526 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":89.432080032,"data":"Epoch 2/3\n"}
+,{"stream_name":"stdout","time":127.273260308,"data":"416/416 - 38s - 91ms/step - auc: 0.9689 - loss: 0.0446 - val_auc: 0.9665 - val_loss: 0.0515 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":127.275324482,"data":"Epoch 3/3\n"}
+,{"stream_name":"stdout","time":164.565885066,"data":"416/416 - 37s - 90ms/step - auc: 0.9775 - loss: 0.0360 - val_auc: 0.9621 - val_loss: 0.0534 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":183.294036328,"data":"[2026-06-18 03:47:45] fold 1 macro AUC=0.975900\n"}
+,{"stream_name":"stdout","time":183.812617022,"data":"[2026-06-18 03:47:46] ========== fold 2/3 ==========\n"}
+,{"stream_name":"stdout","time":184.025743633,"data":"Epoch 1/3\n"}
+,{"stream_name":"stdout","time":225.44917535,"data":"416/416 - 41s - 100ms/step - auc: 0.9020 - loss: 0.0832 - val_auc: 0.9594 - val_loss: 0.0507 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":225.45158686,"data":"Epoch 2/3\n"}
+,{"stream_name":"stdout","time":262.944670087,"data":"416/416 - 37s - 90ms/step - auc: 0.9681 - loss: 0.0448 - val_auc: 0.9557 - val_loss: 0.0495 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":281.583632725,"data":"[2026-06-18 03:49:23] fold 2 macro AUC=0.974430\n"}
+,{"stream_name":"stdout","time":282.173531798,"data":"[2026-06-18 03:49:24] ========== fold 3/3 ==========\n"}
+,{"stream_name":"stdout","time":282.404310991,"data":"Epoch 1/3\n"}
+,{"stream_name":"stdout","time":323.546508062,"data":"416/416 - 41s - 99ms/step - auc: 0.9011 - loss: 0.0842 - val_auc: 0.9568 - val_loss: 0.0520 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":323.548624165,"data":"Epoch 2/3\n"}
+,{"stream_name":"stdout","time":361.228398893,"data":"416/416 - 38s - 91ms/step - auc: 0.9672 - loss: 0.0445 - val_auc: 0.9577 - val_loss: 0.0511 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":361.23040881,"data":"Epoch 3/3\n"}
+,{"stream_name":"stdout","time":398.778888836,"data":"416/416 - 38s - 90ms/step - auc: 0.9777 - loss: 0.0362 - val_auc: 0.9561 - val_loss: 0.0526 - learning_rate: 0.0010\n"}
+,{"stream_name":"stdout","time":417.488831839,"data":"[2026-06-18 03:51:39] fold 3 macro AUC=0.975586\n"}
+,{"stream_name":"stdout","time":418.274381283,"data":"[2026-06-18 03:51:40] OOF macro AUC=0.972599, folds=[0.9759000147807676, 0.9744302995594193, 0.9755861480562755]\n"}
+,{"stream_name":"stderr","time":428.788948049,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":428.78900221,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":429.046859,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":429.046895357,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":430.421789667,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":431.283928467,"data":"[NbConvertApp] Writing 308203 bytes to __results__.html\n"}
+]

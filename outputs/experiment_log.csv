@@ -1,2 +1,6 @@
 experiment_id,model,features,mean_oof_auc,public_score,private_score,submission_file,notes
-exp001,NB-SVM Logistic Regression,"word 1-2 TF-IDF + char 3-5 TF-IDF",0.981742,0.97794,0.97937,outputs/submission_nbsvm_tfidf.csv,"Legal baseline; no test_labels leakage"
+exp001,NB-SVM Logistic Regression,"word 1-2 TF-IDF + char 3-5 TF-IDF",0.981742,0.97794,0.97937,outputs/submission_nbsvm_tfidf.csv,"Legal sparse-text baseline; no test_labels leakage"
+exp002,Keras BiGRU-CNN,"word sequence deep model",0.972599,,,outputs/kernel_keras_gpu/submission_keras_bigru_cnn.csv,"Kaggle GPU model; weaker alone but useful for blending"
+exp003,NB-SVM + Keras OOF Blend,"TF-IDF NB-SVM + Keras BiGRU-CNN",0.985074,0.97984,0.98047,outputs/submission_nbsvm_keras_oof_blend.csv,"OOF search selected 80% NB-SVM + 20% Keras"
+exp004,DistilBERT Holdout,"Transformer sequence model",0.983036,,,outputs/kernel_transformer_gpu/submission_transformer_holdout.csv,"Kaggle GPU holdout model used as blend component"
+exp005,NB-SVM + Keras + Transformer Blend,"TF-IDF + Keras + DistilBERT",,0.98226,0.98240,outputs/submission_nbsvm_keras20_transformer20.csv,"Current best private score; weights 60/20/20"
