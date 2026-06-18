@@ -1,85 +1,81 @@
-# Kaggle Toxic Comment Classification Challenge
+# Kaggle Jigsaw 有毒评论多标签分类
 
-This repository contains a legal, reproducible solution for Kaggle's
-`jigsaw-toxic-comment-classification-challenge`.
+![Result Card](assets/result_card.png)
 
-The current best version combines a strong TF-IDF NB-SVM baseline with a GPU
-DistilBERT text model. No post-competition `test_labels.csv` leakage is used.
+## 项目一句话
 
-## Best Result
+对评论同时预测 toxic、obscene、threat、insult 等多个标签。
 
-| File | Public AUC | Private AUC |
-| --- | ---: | ---: |
-| `outputs/submission_nbsvm30_keras0_transformer_e3_70.csv` | 0.98619 | 0.98611 |
+这个项目不是简单跑一个 baseline，而是围绕 **数据清洗 -> 特征工程 -> 稳定验证 -> 模型融合 -> 线上结果复盘** 做成一条完整建模链路。核心目标是：让模型不仅分数高，而且每一步为什么有效都能讲清楚。
 
-The downloaded public leaderboard snapshot puts the top 20% threshold around
-`0.9867`. This version is close to the requested top 20% target, but still
-slightly below it.
+## 当前结果
 
-## Method
+| 项目 | 内容 |
+| --- | --- |
+| Competition | `jigsaw-toxic-comment-classification-challenge` |
+| Metric | `Mean ROC-AUC` |
+| Best Submission | `outputs/submission_nbsvm30_keras0_transformer_e3_70.csv` |
+| Best Score | Private AUC 0.98611 |
+| Validation / Extra | Public AUC 0.98619 |
+| Status | 接近 top 20%，无 test_labels 泄露 |
 
-The final selected submission is a probability blend:
+## 数据清洗
 
-- 30% TF-IDF NB-SVM Logistic Regression.
-- 70% DistilBERT Transformer trained for 3 epochs on Kaggle GPU.
+- 轻度清洗换行、URL、HTML 实体，保留辱骂词、大小写和拼写变体中的信号。
+- 严格不使用 post-competition `test_labels.csv`，保证方案合法。
+- 多标签目标独立建模，同时用统一验证方式比较各模型。
 
-Feature and modeling details:
+## 特征工程亮点
 
-- Word TF-IDF with 1-2 grams.
-- Character TF-IDF with 3-5 grams.
-- Per-label NB-SVM log-count ratio features.
-- Per-label Logistic Regression with 5-fold validation.
-- DistilBERT multi-label classifier with sigmoid outputs.
-- OOF-based blending for the NB-SVM and Keras components.
-- Public/private leaderboard checks only for final submission selection.
+- NB-SVM 使用 word 1-2 gram 和 char 3-5 gram，能抓住脏词变体和拼写规避。
+- Keras BiGRU-CNN 学习句子顺序，但单模较弱，后期被更强 Transformer 替代。
+- 3 epoch DistilBERT 捕捉上下文毒性，最终与 NB-SVM 形成传统 NLP + 深度语义互补。
 
-## Scores
+这部分是项目最重要的地方：特征不是随便堆出来的，而是尽量贴近业务或数据生成逻辑。我的思路是先问“这个变量为什么会影响目标”，再把这个想法翻译成模型能理解的数值、类别、比例、交叉或序列表示。
 
-| Experiment | Submission | Public AUC | Private AUC | Notes |
-| --- | --- | ---: | ---: | --- |
-| NB-SVM TF-IDF | `outputs/submission_nbsvm_tfidf.csv` | 0.97794 | 0.97937 | Strong legal sparse-text baseline |
-| NB-SVM + Keras | `outputs/submission_nbsvm_keras_oof_blend.csv` | 0.97984 | 0.98047 | OOF blend, Keras weight 20% |
-| NB-SVM + Keras + Transformer | `outputs/submission_nbsvm_keras20_transformer20.csv` | 0.98226 | 0.98240 | Current best private score |
-| NB-SVM + Transformer E3 | `outputs/submission_nbsvm30_keras0_transformer_e3_70.csv` | 0.98619 | 0.98611 | Current best private score |
+## 模型方法
 
-## Reproduce
+- NB-SVM Logistic Regression 作为强 sparse baseline。
+- Kaggle GPU 训练 Keras BiGRU-CNN 和 DistilBERT。
+- 最终选用 30% NB-SVM + 70% DistilBERT E3，去掉拖分的 Keras。
 
-Install local dependencies for the sparse baseline:
+验证上尽量使用 OOF 思路，避免只看一次线上提交。融合也不是机械平均，而是根据 OOF、public/private 表现和模型互补性来选择。
+
+## 结果分析
+
+- 分数从 NB-SVM private 0.97937 提升到 0.98611，主要来自更强的 3 epoch Transformer。
+- 后期实验证明 Keras 在强 Transformer 面前反而拖分，及时移除是关键决策。
+- 这个项目展示了不是所有模型都该融合，融合权重必须由验证和 leaderboard 共同校准。
+
+## 如何复现
+
+安装依赖：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run the local TF-IDF NB-SVM baseline:
+复现时先从 Kaggle 下载原始数据到 README 或脚本约定的数据目录。部分仓库为了保持轻量，只保留最佳提交文件、实验日志和核心说明；如果仓库中存在 `src/`、`notebooks/` 或 `kaggle_kernel_*`，优先从这些入口运行训练。
+
+常见入口示例：
 
 ```bash
-python src/train_nbsvm_tfidf.py
+python src/train_best.py
+# 或在 Kaggle 上运行 kaggle_kernel_* 中的 GPU kernel
 ```
 
-GPU deep-learning kernels are stored in:
+如果当前项目只保留了最佳产物，则可直接查看 `outputs/` 中的 OOF、prediction、submission 和实验摘要文件。
 
-- `kaggle_kernel_jigsaw/`
-- `kaggle_kernel_jigsaw_transformer/`
+## 未来改进方向
 
-Push a kernel to Kaggle:
+- 训练 5-fold Transformer OOF，而不是单 holdout。
+- 尝试 RoBERTa/DeBERTa/toxic-bert，多模型 rank/prob 融合。
+- 增加 max_len 到 192/256，改善长评论截断问题。
 
-```bash
-kaggle kernels push -p kaggle_kernel_jigsaw_transformer
-```
+## 项目价值
 
-## Outputs
+这个项目可以体现三类能力：
 
-Important files:
-
-- `outputs/submission_nbsvm_keras20_transformer20.csv`
-- `outputs/submission_nbsvm30_keras0_transformer_e3_70.csv`
-- `outputs/submission_nbsvm_keras_oof_blend.csv`
-- `outputs/submission_nbsvm_tfidf.csv`
-- `outputs/oof_nbsvm_tfidf.csv`
-- `outputs/pred_nbsvm_tfidf.csv`
-- `outputs/kernel_keras_gpu/`
-- `outputs/kernel_transformer_gpu/`
-- `outputs/experiment_log.csv`
-- `outputs/best_result_summary.csv`
-
-Raw Kaggle data is not committed.
+- **建模能力**：能从 baseline 走到调参、融合和线上验证。
+- **特征工程能力**：能把业务直觉、数据分布和模型输入连接起来。
+- **复盘能力**：能说明为什么涨分、为什么不涨，以及下一步该往哪里优化。
